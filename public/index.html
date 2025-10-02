@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>_ndphucan_personalsharing</title>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Open Sans', sans-serif;
+  background: linear-gradient(135deg, #8E7AB5 0%, #B784B7 100%);
+  color: #fff;
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+/* Thanh menu */
+nav {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  padding: 15px 25px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  flex-wrap: wrap;
+  border-radius: 0 0 20px 20px;
+}
+
+nav a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1rem;
+  padding: 10px 16px;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+}
+
+nav a:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: translateY(-2px);
+}
+
+.language-switcher {
+  margin-left: auto;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+  border: 2px solid rgba(255, 255, 255, 0.6);
+  padding: 6px 12px;
+  border-radius: 8px;
+  background: transparent;
+  transition: all 0.3s ease;
+}
+
+.language-switcher:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+    .hero {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 80vh;
+      text-align: center;
+      color: white;
+    }
+
+    .hero h1 {
+      font-size: 3rem;
+      background: #8E7AB5;
+      backdrop-filter: blur(10px);
+      padding: 30px 40px;
+      border-radius: 20px;
+      box-shadow: 0 8px 20px #8E7AB5;
+    }
+
+    @media (max-width: 600px) {
+      nav {
+        gap: 15px;
+        padding: 10px;
+      }
+
+      .hero h1 {
+        font-size: 2rem;
+        padding: 20px;
+      }
+    }
+
+    /* Popup overlay */
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+}
+
+/* Popup content */
+.popup-content {
+  background: #E493B3;
+  color:#fff;
+  padding: 30px;
+  border-radius: 12px;
+  text-align: center;
+  max-width: 400px;
+  width: 90%;
+  box-shadow: 0 4px 20px rgba(250, 249, 249, 0.3);
+  position: relative;
+  font-family: 'Open Sans', sans-serif;
+}
+
+/* Nút đóng */
+.popup-close {
+  background-color: #8E7AB5;
+  font-size: rem;
+  color: white;
+  cursor: pointer;
+  margin-top: 20px;
+  padding: 10px 20px;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.popup-close:hover {
+  background-color: #6e5a9e;
+}
+
+.hero {
+  margin: 0;
+  padding: 0;
+}
+
+.slideshow-container {
+  position: relative;
+  width: 100%;
+  height: 100vh; /* full màn hình */
+  margin: 0;
+  overflow: hidden;
+}
+
+.slide {
+  display: none;
+  height: 100%;
+  width: 100%;
+  position: relative;
+}
+
+.slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.fade {
+  animation: fadeEffect 1.5s;
+}
+
+@keyframes fadeEffect {
+  from {opacity: 0.4}
+  to {opacity: 1}
+}
+
+/* Caption ở giữa màn hình */
+.caption {
+  position: absolute;
+  top: 80%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgb(0, 0, 0);
+  opacity: 1;
+  color: #fff;
+  padding: 20px 30px;
+  border-radius: 12px;
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-align: center;
+  max-width: 80%;
+  animation: captionFade 1s ease;
+}
+
+@keyframes captionFade {
+  from {opacity: 0; transform: translate(-50%, -40%);}
+  to {opacity: 0.5; transform: translate(-50%, -50%);}
+}
+
+/* Nút điều khiển */
+.prev, .next {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 16px;
+  color: white;
+  font-weight: bold;
+  font-size: 2rem;
+  transition: 0.3s;
+  border-radius: 50%;
+  user-select: none;
+  background: rgba(0,0,0,0.3);
+  z-index: 10;
+}
+
+.next { right: 20px; }
+.prev { left: 20px; }
+
+.prev:hover, .next:hover {
+  background: rgba(0,0,0,0.6);
+}
+
+/* Chấm tròn */
+.dots {
+  text-align: center;
+  position: absolute;
+  bottom: 20px;
+  width: 100%;
+  z-index: 10;
+}
+
+.dot {
+  cursor: pointer;
+  height: 15px;
+  width: 15px;
+  margin: 0 5px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+  transition: background 0.6s ease;
+}
+
+.active, .dot:hover {
+  background-color: #fff;
+}
+
+.sharing {
+  padding: 50px 20px;
+  color: white;
+  text-align: center;
+}
+
+.sharing h2 {
+  font-size: 2rem;
+  margin-bottom: 30px;
+  background: rgba(255,255,255,0.1);
+  padding: 15px 30px;
+  border-radius: 12px;
+  display: inline-block;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+}
+
+.post {
+  background: rgba(255,255,255,0.1);
+  border-radius: 15px;
+  padding: 20px;
+  margin: 20px auto;
+  max-width: 90%;
+  text-align: left;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  transition: transform 0.3s ease;
+}
+
+.post:hover {
+  transform: translateY(-5px);
+}
+
+.post h3 {
+  margin-top: 0;
+  font-size: 1.3rem;
+  color: #fff;
+}
+
+.post p {
+  font-size: 1rem;
+  line-height: 1.6;
+  margin: 10px 0;
+  color: #f0f0f0;
+}
+
+.post-date {
+  font-size: 0.9rem;
+  color: #ddd;
+  display: block;
+  margin-top: 10px;
+}
+
+.post-images {
+  display: flex;
+  gap: 15px;
+  margin: 20px 0;
+  overflow-x: auto;         
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 10px;
+}
+
+/* Ẩn scrollbar */
+.post-images::-webkit-scrollbar {
+  display: none;
+}
+.post-images {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.post-images img {
+  flex: 0 0 250px;          
+  height: 180px;            
+  object-fit: cover;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  scroll-snap-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.post-images img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+}
+
+
+  </style>
+</head>
+<body>
+<!-- Popup Thông báo -->
+ <div id="popup-notice" class="popup-overlay">
+  <div class="popup-content">
+    <h2>Hello!</h2>
+    <p>This is my personal and copyrighted product, so any sharing of this product must have my consent. <br>
+      <br>
+      Thank you for respecting product copyright and information security! <3 <br></p>
+    <button class="popup-close" onclick="closePopup()">Agree</button>
+
+  </div>
+</div>
+
+  <nav>
+    <a href="home.html" data-en="Home" data-vi="Trang chủ">Home</a>
+    <a href="aboutme.html" data-en="About me" data-vi="Giới thiệu">About me</a>
+    <a href="education.html" data-en="Education" data-vi="Học vấn">Education</a>
+    <a href="product.html" data-en="Product" data-vi="Sản phẩm">Product</a>
+    <a href="experience.html" data-en="Experiment" data-vi="Thử nghiệm">Experience</a>
+    <a href="contact.html" data-en="Contact" data-vi="Liên hệ">Contact</a>
+    <button class="language-switcher" onclick="toggleLanguage()">Tiếng Việt</button>
+  </nav>
+
+<section class="hero">
+  <div class="slideshow-container">
+
+    <!-- Slide 1 -->
+    <div class="slide fade"> 
+      <a href="education.html">
+      <img src="img\scr1.png" alt="Scr 1">
+      <div class="caption">Programing for Data Science and Visualization</div></a>
+    </div>
+
+    <!-- Slide 2 -->
+    <div class="slide fade">
+      <a href="product.html">
+      <img src="img\sentiment.png" alt="Scr 3">
+      <div class="caption">Sentiment Analyzer AI</div></a>
+    </div>
+
+    <!-- Slide 3 -->
+    <div class="slide fade">
+       <a href="education.html">
+      <img src="img\scr2.png" alt="Scr 2">
+      <div class="caption">Design and System Thinking</div></a>
+    </div>
+
+
+    <!-- Nút điều khiển -->
+    <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+    <a class="next" onclick="plusSlides(1)">&#10095;</a>
+  </div>
+
+  <!-- Chấm tròn -->
+  <div class="dots">
+    <span class="dot" onclick="currentSlide(1)"></span>
+    <span class="dot" onclick="currentSlide(2)"></span>
+    <span class="dot" onclick="currentSlide(3)"></span>
+  </div>
+</section>
+
+<!-- Section Sharing -->
+<section class="sharing">
+  <h2 data-en="Personal Sharing" data-vi="Chia sẻ cá nhân">Personal Sharing</h2>
+
+  <div class="post">
+    <h3>View Motivation</h3>
+    <p>
+       Mấy tấm ảnh so chill mn share nhau trong chat <br>
+       Xíu động lực nhỏ để chạy deadline + ly trà đào vs tí bánh nữa là 10đ<br>
+      Cre: Fulbrighter
+    </p>
+
+<div class="post-images">
+    <img src="img\c6.jpg" alt="img_cre_tinhlangnghiaxom_members">
+    <img src="img\c2.jpg" alt="img_cre_tinhlangnghiaxom_members">
+    <img src="img\c8.jpg" alt="img_cre_tinhlangnghiaxom_members">
+    <img src="img\c1.jpg" alt="img_cre_tinhlangnghiaxom_members">
+    <img src="img\c5.jpg" alt="img_cre_tinhlangnghiaxom_members">
+    <img src="img\c4.jpg" alt="img_cre_tinhlangnghiaxom_members">
+    <img src="img\c7.jpg" alt="img_cre_tinhlangnghiaxom_members">
+    <img src="img\c3.jpg" alt="img_cre_tinhlangnghiaxom_members">
+  </div>
+  </div>
+
+<div class="post">
+    
+    <h3>Một xíu dễ thương</h3>
+    <p>
+      Nay đi về đụng phải thầy Tobias và được thầy hỏi thăm quá trời, thầy bảo hôm qua vô ngồi học thấy cứ ho hoài nên thầy hỏi coi hết đau họng chưa :)) <br>
+      Dù là thầy hơi gắt vụ participation với discussion trong lớp (cụ thể là thầy nổi tiếng là không ai im lặng được trong lớp của thầy) nhưng mà thầy siêu hài hước với quan tâm sinh viên <br>
+    </p>
+  </div>
+
+  <div class="post">
+    
+    <h3>Register Courses - T7/2025</h3>
+    <p>
+       Respect for Thầy Đăng <br>
+      Bị waitlist một môn rất muốn học, nghe suggestion từ mấy anh chị thì là nên đi tuần add/drop học thử rồi xin thầy add vô lớp. Nhưng mà kiên nhẫn bằng âm ròi nên là mạnh dạn viết một cái mail xin thầy và thầy hong những đồng ý mà còn viết mail cho Registrar's Office dùm luôn nữaaa <br>
+      Thầy tuyệt vời quá luôn!!!!<br>
+      Bí kiếp ngìn năm: xin professor là kiểu gì cũng được <br>
+    </p>
+
+<div class="post-images">
+    <img src="img\Screenshot_2.png" alt="img_1">
+  </div>
+  </div>
+
+  
+  <div class="post">
+    <h3>Học quân sự - T6/2025</h3>
+    <p>
+       Học quân sự ở TDTU <br>
+       Besides the discipline of military course...chơi ném đĩa cũng vui (vui đến dộ mém xíu là tặng cái đĩa lại cho cái hồ của TDT lun -_-)<br>
+       Ai mà ngờ đc cảnh vớt cái đĩa thoi mà nhìn thanh xuân vườn trường dữ =))<br>
+       📷: Khoa Trần
+    </p>
+
+<div class="post-images">
+    <img src="img\27_06_25(1).jpg" alt="img_27/06/2025">
+    <img src="img\27_06_25(2).jpg" alt="img_27/06/2025">
+  </div>
+  </div>
+
+  
+</section>
+
+  <script>
+    let currentLanguage = 'en';
+
+    function toggleLanguage() {
+      const elements = document.querySelectorAll('[data-en]');
+      currentLanguage = currentLanguage === 'en' ? 'vi' : 'en';
+
+      elements.forEach(el => {
+        el.textContent = el.getAttribute(`data-${currentLanguage}`);
+      });
+
+      // Update button label
+      document.querySelector('.language-switcher').textContent =
+        currentLanguage === 'en' ? 'Tiếng Việt' : 'English';
+    }
+    // Hàm đóng popup
+  function closePopup() {
+    document.getElementById("popup-notice").style.display = "none";
+  }
+
+  // Tự động mở popup khi trang tải xong
+  window.addEventListener("load", function () {
+    document.getElementById("popup-notice").style.display = "flex";
+  });
+ let slideIndex = 1;
+let slideTimer;
+
+showSlides(slideIndex);
+
+// Nút điều khiển
+function plusSlides(n) {
+  clearTimeout(slideTimer);
+  showSlides(slideIndex += n);
+}
+
+// Chấm tròn
+function currentSlide(n) {
+  clearTimeout(slideTimer);
+  showSlides(slideIndex = n);
+}
+
+function showSlides(n) {
+  let i;
+  let slides = document.getElementsByClassName("slide");
+  let dots = document.getElementsByClassName("dot");
+
+  if (n > slides.length) {slideIndex = 1}
+  if (n < 1) {slideIndex = slides.length}
+
+  for (i = 0; i < slides.length; i++) {
+    slides[i].style.display = "none";  
+  }
+  for (i = 0; i < dots.length; i++) {
+    dots[i].className = dots[i].className.replace(" active", "");
+  }
+
+  slides[slideIndex-1].style.display = "block";  
+  dots[slideIndex-1].className += " active";
+
+  slideTimer = setTimeout(() => showSlides(slideIndex += 1), 3000); // auto chạy sau 3s
+}
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const galleries = document.querySelectorAll(".post-images");
+    galleries.forEach(gallery => {
+      const imgs = gallery.querySelectorAll("img");
+      if (imgs.length <= 2) {
+        gallery.style.justifyContent = "center";   // căn giữa
+        gallery.style.overflowX = "hidden";        // không cuộn
+      }
+    });
+  });
+  </script>
+
+</body>
+</html>

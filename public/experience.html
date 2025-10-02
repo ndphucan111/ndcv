@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Experience</title>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" rel="stylesheet"/>
+  <style>
+    /* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Open Sans', sans-serif;
+  background: linear-gradient(135deg, #8E7AB5, #B784B7);
+  color: #fff;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Navbar */
+nav {
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 25px;
+  padding: 16px 28px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  border-radius: 0 0 20px 20px;
+}
+
+nav a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1rem;
+  padding: 8px 16px;
+  border-radius: 10px;
+  transition: all 0.35s ease;
+}
+
+nav a:hover {
+  background: rgba(255, 209, 227, 0.3);
+  transform: translateY(-2px) scale(1.05);
+}
+
+.language-switcher {
+  margin-left: auto;
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  border: 2px solid rgba(255, 255, 255, 0.6);
+  padding: 6px 14px;
+  border-radius: 10px;
+  background: transparent;
+  transition: all 0.3s ease;
+}
+
+.language-switcher:hover {
+  background: rgba(255,209,227,0.25);
+  transform: translateY(-2px);
+}
+
+/* Container */
+.container {
+  max-width: 1000px;
+  margin: 60px auto;
+  padding: 40px;
+  background: rgba(255,255,255,0.12);
+  backdrop-filter: blur(20px);
+  border-radius: 25px;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.35);
+  animation: fadeIn 1s ease;
+}
+
+@keyframes fadeIn {
+  from {opacity: 0; transform: translateY(40px);}
+  to {opacity: 1; transform: translateY(0);}
+}
+
+/* Heading */
+h2 {
+  font-size: 2.2rem;
+  margin-bottom: 35px;
+  text-align: center;
+  font-weight: 700;
+  letter-spacing: 1px;
+  border-bottom: 2px solid rgba(255,255,255,0.3);
+  padding-bottom: 12px;
+}
+
+/* Experience cards */
+.experience {
+  background: rgba(255,255,255,0.15);
+  padding: 20px 25px;
+  margin-bottom: 25px;
+  border-radius: 18px;
+  transition: all 0.35s ease;
+  cursor: pointer;
+}
+
+.experience:hover {
+  background: rgba(255,255,255,0.28);
+  transform: translateY(-4px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.35);
+}
+
+.experience-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  transition: color 0.3s ease;
+}
+
+.experience:hover .experience-title {
+  color: #FFD6EC;
+}
+
+.experience-time {
+  font-size: 0.95rem;
+  font-style: italic;
+  color: #f3e5f5;
+  margin-top: 4px;
+  margin-bottom: 10px;
+  opacity: 0.85;
+}
+
+.experience-content {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: all 0.5s ease;
+  margin-top: 0;
+}
+
+.experience:hover .experience-content {
+  max-height: 600px; /* đủ cho nội dung dài */
+  opacity: 1;
+  margin-top: 15px;
+}
+
+.experience-content p {
+  margin: 12px 0;
+  line-height: 1.7;
+}
+
+.experience-content a {
+  color: #FFD1E3;
+  text-decoration: underline;
+  transition: color 0.3s ease;
+}
+
+.experience-content a:hover {
+  color: #fff;
+}
+
+/* Responsive */
+@media (max-width: 650px) {
+  nav { gap: 15px; }
+  h2 { font-size: 1.8rem; }
+  .experience-title { font-size: 1.1rem; }
+  .container { padding: 25px; }
+}
+
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="home.html" data-en="Home" data-vi="Trang chủ">Home</a>
+    <a href="aboutme.html" data-en="About me" data-vi="Giới thiệu">About me</a>
+    <a href="education.html" data-en="Education" data-vi="Học vấn">Education</a>
+    <a href="product.html" data-en="Product" data-vi="Sản phẩm">Product</a>
+    <a href="experience.html" data-en="Experience" data-vi="Kinh nghiệm">Experience</a>
+    <a href="contact.html" data-en="Contact" data-vi="Liên hệ">Contact</a>
+    <button class="language-switcher" onclick="toggleLanguage()">Tiếng Việt</button>
+  </nav>
+
+  <div class="container"> 
+  <h2 data-en="My Experiences" data-vi="Trải nghiệm của tôi">My Experiences</h2>
+
+  <!-- Experience 1 -->
+  <div class="experience" onclick="toggleExperience(this)">
+    <div class="experience-title" 
+         data-en="1. Media Design Team - Fulbright Student Council" 
+         data-vi="1. Nhóm Thiết kế Truyền thông - Hội đồng Sinh viên Fulbright">
+      1. Media Design Team - Fulbright Student Council
+    </div>
+    <div class="experience-time" 
+       data-en="Sep 2024 – June 2025" 
+       data-vi="09/2023 – 06/2024">
+    Sep 2023 – June 2024
+  </div>
+    <div class="experience-content">
+      <p data-en="Designed posts for social media (Facebook, Instagram), event posters, and yearbook." 
+         data-vi="Thiết kế bài đăng mạng xã hội (Facebook, Instagram), poster sự kiện, và kỷ yếu.">
+         Designed posts for social media (Facebook, Instagram), event posters, and yearbook.
+         <br><strong>Yearbook:</strong> <a href="https://www.facebook.com/share/p/1BHJsdsFhm/">Facebook link (pdf link is private)</a>
+      </p>
+
+      <p data-en="Created representative icons to enhance student council recognition." 
+         data-vi="Tạo biểu tượng đại diện nhằm tăng nhận diện hội đồng sinh viên.">
+         Created representative icons to enhance student council recognition.
+         <br><strong>Icons charater "Me":</strong> <a href="https://drive.google.com/file/d/1gu5bJHRo6eO797Ss2iF0DE1ok1UlpAVp/view?usp=drive_link">"Me" in Spirit Week</a>
+      </p>
+
+      <p data-en="Collaborated with other committees to brainstorm and support events." 
+         data-vi="Hợp tác với các ban khác để lên ý tưởng và hỗ trợ sự kiện.">
+         Collaborated with other committees to brainstorm and support events.
+      </p>
+
+      <p data-en="Create post timelines, write announcement emails, and brainstorm media support ideas." 
+         data-vi="Lên timeline bài đăng, viết email thông báo, lên ý tưởng hỗ trợ truyền thông.">
+         Create post timelines, write announcement emails, and brainstorm media support ideas.
+      </p>
+
+      <p data-en="Tools: Photoshop, Illustrator, Canva, Capcut." 
+         data-vi="Công cụ: Photoshop, Illustrator, Canva, Capcut.">
+         Tools: Photoshop, Illustrator, Canva, Capcut.
+      </p>
+    </div>
+  </div>
+
+  <!-- Experience 2 -->
+  <div class="experience" onclick="toggleExperience(this)">
+    <div class="experience-title" 
+         data-en="2. Website - Dev Team - Fulbright Digital Humanity Lab" 
+         data-vi="2. Nhóm Phát triển Website - Phòng thí nghiệm Nhân văn Kỹ thuật số Fulbright">
+      2. Website - Dev Team - Fulbright Digital Humanity Lab
+    </div>
+
+    <div class="experience-time" 
+       data-en="Sep 2024 – June 2025" 
+       data-vi="09/2023 – 06/2024">
+    Sep 2023 – June 2024
+  </div>
+
+    <div class="experience-content">
+      <p data-en="Developed front-end web pages for the lab’s website." 
+         data-vi="Phát triển giao diện web cho website của phòng lab.">
+         Developed front-end web pages for the lab’s website.
+      </p>
+
+      <p data-en="Joined discussions and exchanges in digital humanities projects." 
+         data-vi="Tham gia thảo luận và trao đổi trong các dự án nhân văn số.">
+         Joined discussions and exchanges in digital humanities projects.
+      </p>
+
+      <p data-en="Worked under the Vietnam Studies Center’s umbrella." 
+         data-vi="Hoạt động dưới sự quản lý của Trung tâm Nghiên cứu Việt Nam.">
+         Worked under the Vietnam Studies Center’s umbrella.
+      </p>
+    </div>
+  </div>
+
+  <!-- Experience 3 -->
+  <div class="experience" onclick="toggleExperience(this)">
+    <div class="experience-title" 
+         data-en="3. Event Team - Fulbright Student Council" 
+         data-vi="3. Nhóm Tổ chức Sự kiện - Hội đồng Sinh viên Fulbright">
+      3. Event Team - Fulbright Student Council
+    </div>
+
+    <div class="experience-time" 
+       data-en="Sep 2024 – June 2025" 
+       data-vi="09/2023 – 06/2024">
+    Sep 2023 – June 2024
+  </div>
+
+    <div class="experience-content">
+      <p data-en="Planned, organized, and coordinated school events." 
+         data-vi="Lên kế hoạch, tổ chức và điều phối sự kiện của trường.">
+         Planned, organized, and coordinated school events.
+         <br><strong>Example:</strong> <a>Spirit Week, Year-end Concert, Election,...</a>
+      </p>
+
+      <p data-en="Come up with ideas for concepts, decorate the stage, contact and find vendors,..." 
+         data-vi="Đưa ra ý tưởng, trang trí sân khấu, liên hệ và tìm nhà cung cấp,...">
+        Come up with ideas for concepts, decorate the stage, contact and find vendors,...
+      </p>
+
+      <p data-en="Established risk management strategies and problem-solving skills." 
+         data-vi="Xây dựng chiến lược quản lý rủi ro và kỹ năng giải quyết vấn đề.">
+         Established risk management strategies and problem-solving skills.
+      </p>
+    </div>
+  </div>
+</div>
+
+  <script>
+    let currentLanguage = 'en';
+
+    function toggleLanguage() {
+      const elements = document.querySelectorAll('[data-en]');
+      currentLanguage = currentLanguage === 'en' ? 'vi' : 'en';
+      elements.forEach(el => {
+        el.textContent = el.getAttribute(`data-${currentLanguage}`);
+      });
+      document.querySelector('.language-switcher').textContent =
+        currentLanguage === 'en' ? 'Tiếng Việt' : 'English';
+    }
+  </script>
+
+</body>
+</html>

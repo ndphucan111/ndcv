@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Education</title>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" rel="stylesheet"/>
+  <style>
+    * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Open Sans', sans-serif;
+  background: linear-gradient(135deg, #8E7AB5 0%, #B784B7 100%);
+  color: #fff;
+  line-height: 1.6;
+}
+
+/* Navbar */
+nav {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 25px;
+  padding: 15px 25px;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.25);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  border-radius: 0 0 18px 18px;
+}
+
+nav a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1rem;
+  padding: 8px 14px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+nav a:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: translateY(-2px);
+}
+    .language-switcher {
+      margin-left: auto;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      border: 2px solid white;
+      padding: 5px 10px;
+      border-radius: 6px;
+      background-color: transparent;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 40px auto;
+      padding: 30px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 20px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    }
+
+    h2 {
+      font-size: 1.8rem;
+      margin-bottom: 10px;
+      border-bottom: 2px solid rgba(255,255,255,0.4);
+      padding-bottom: 5px;
+    }
+
+    .school {
+      margin-bottom: 40px;
+      font-size: 1.2rem;
+    }
+
+    .dates {
+      font-weight: bold;
+      margin-top: 5px;
+      font-size: 0.95rem;
+    }
+
+    .course-projects h3 {
+      margin-top: 25px;
+      font-size: 1.5rem;
+      margin-bottom: 25px;
+      color: #FFDDEE;
+    }
+
+    .course-toggle {
+      background: rgba(255, 255, 255, 0.15);
+      padding: 12px 16px;
+      margin-bottom: 10px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .course-toggle:hover {
+      background: rgba(255, 255, 255, 0.25);
+    }
+
+    /* Nội dung ẩn mặc định */
+.course-content {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height 0.6s ease, opacity 0.4s ease, padding 0.3s ease;
+  padding: 0 15px;
+  line-height: 1.6;
+  font-size: 0.95rem;
+}
+
+/* Khi di chuột vào .course thì nội dung hiện ra */
+.course:hover .course-content {
+  max-height: 1000px;  /* đủ lớn để chứa hết nội dung */
+  opacity: 1;
+  padding: 15px 20px;
+  margin-top: 10px;
+  background: rgba(255, 255, 255, 0.08);
+  border-left: 3px solid #FFDDEE;
+  border-radius: 10px;
+}
+
+/* Thêm hiệu ứng cho khối course khi hover */
+.course:hover .course-toggle {
+  background: rgba(255, 255, 255, 0.25);
+  transform: scale(1.02);
+}
+
+
+    @media (max-width: 600px) {
+      nav {
+        gap: 15px;
+      }
+
+      h2 {
+        font-size: 1.4rem;
+      }
+
+      .course-projects h3 {
+        font-size: 1.1rem;
+      }
+    }
+    .course-content {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height 0.6s ease, opacity 0.4s ease, padding 0.3s ease;
+  padding: 0 15px;
+  line-height: 1.6;
+  font-size: 0.95rem;
+}
+
+.course.active .course-content {
+  max-height: 1000px; 
+  opacity: 1;
+  padding: 15px 20px;
+  margin-top: 10px;
+  background: rgba(255, 255, 255, 0.08);
+  border-left: 3px solid #FFDDEE;
+  border-radius: 10px;
+}
+
+/* Style cho strong */
+.course-content strong {
+  color: #FFE0F5;
+  font-size: 1.2rem;
+}
+
+.course-content a {
+  display: inline-block;
+  margin-top: 5px;
+  color: #FFDDEE;
+  text-decoration: underline;
+  transition: color 0.3s;
+}
+
+.course-content a:hover {
+  color: #fff;
+}
+
+.course-projects.upcoming .course-toggle {
+  background: #E493B3; 
+  color: #fff;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.course-projects.upcoming .course-toggle:hover {
+  background: #d87ba2; 
+  transform: scale(1.02);
+}
+
+.course-projects.course.upcoming .course-content {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height 0.6s ease, opacity 0.4s ease, padding 0.3s ease;
+  padding: 0 15px;
+  line-height: 1.6;
+  font-size: 0.95rem;
+}
+
+.course-projects.upcoming .course.active .course-content {
+  max-height: 1000px;
+  opacity: 1;
+  padding: 15px 20px;
+  margin-top: 10px;
+  background: rgba(255, 255, 255, 0.08); 
+  border-left: 3px solid #FFDDEE;       
+  border-radius: 10px;
+}
+
+.course-projects.upcoming .course-content strong {
+  color: #FFE0F5;
+  font-size: 1.2rem;
+}
+
+.course-projects.upcoming .course-content a {
+  display: inline-block;
+  margin-top: 5px;
+  color: #FFDDEE;
+  text-decoration: underline;
+  transition: color 0.3s;
+}
+
+.course-projects.upcoming .course-content a:hover {
+  color: #fff;
+}
+
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="home.html" data-en="Home" data-vi="Trang chủ">Home</a>
+    <a href="aboutme.html" data-en="About me" data-vi="Giới thiệu">About me</a>
+    <a href="education.html" data-en="Education" data-vi="Học vấn">Education</a>
+    <a href="product.html" data-en="Product" data-vi="Sản phẩm">Product</a>
+    <a href="experience.html" data-en="Experience" data-vi="Thử nghiệm">Experience</a>
+    <a href="contact.html" data-en="Contact" data-vi="Liên hệ">Contact</a>
+    <button class="language-switcher" onclick="toggleLanguage()">Tiếng Việt</button>
+  </nav>
+
+  <div class="container">
+    <div class="school">
+      <h2 data-en="Ontario Secondary School Diploma" data-vi="Bằng tốt nghiệp trung học phổ thông Ontario">Ontario Secondary School Diploma</h2>
+      <p data-en="St.Basil The Great College School" data-vi="Trường St.Basil The Great">St.Basil The Great College School</p>
+      <div class="dates" data-en="2022 - 2024 | North York, Toronto, Ontario, Canada" data-vi="2022 - 2024 | North York, Toronto, Ontario, Canada">
+       2022 - 2024 | North York, Toronto, Ontario, Canada
+      </div>
+    </div>
+
+    <div class="school">
+      <h2 data-en="Major: Computer Science - Artificial Intelligence <br>
+Minor: Business, Policy and Society" data-vi="Ngành chính: Computer Science - Artificial Intelligence <br>
+Ngành phụ: Business, Policy and Society">Major: Computer Science - Artificial Intelligence <br>
+Minor: Business, Policy and Society</h2>
+      <p data-en="Fulbright University Vietnam" data-vi="Đại Học Fulbright Việt Nam">Fulbright University Vietnam</p>
+      <div class="dates" data-en="2024 - 2028 | 105, Ton Dat Tien, District 7, Ho Chi Minh, Vietnam" data-vi="2024 - 2028 | 105, Tôn Dật Tiên, Quận 7, Hồ Chí Minh, Việt Nam">
+        2024 - 2028 | 105, Tôn Dật Tiên, District 7, Hồ Chí Minh City, Vietnam
+      </div>
+
+      <div class="course-projects">
+        <h3 data-en="Typical Projects from Courses Studied" data-vi="Dự án tiêu biểu từ các khóa học">Typical Projects from Courses Studied</h3>
+
+        <div class="pds"><div class="course" onclick="toggleCourse(this)">
+          <div class="course-toggle" data-en="1. Programming for Data Science and Visualization" data-vi="1. Programming for Data Science and Visualization">1. Programming for Data Science and Visualization</div>
+          <div class="course-content">
+  <p>
+    <strong data-en="About course:" data-vi="Về khóa học:">About course:</strong>
+  </p>
+
+  <p 
+    data-en="The Programming for Data Science and Visualization course aims at providing students with a set of skills to analyze the nature of data across different domains. The course demonstrates data visualization by understanding, questioning, and problematizing how data are generated, analyzed, and used. The students will be able to apply concepts and skills to visualize data, interpret the findings, and examine the impacts of data-driven decision. The course will also get the students familiar with Python programming language and its libraries to analyze, visualize and discover data insight leading to a proper data-driven decision-making process."
+    
+    data-vi="Khóa học Lập trình cho Khoa học Dữ liệu và Trực quan hóa nhằm cung cấp cho sinh viên bộ kỹ năng để phân tích bản chất của dữ liệu trong nhiều lĩnh vực. Khóa học minh họa việc trực quan hóa dữ liệu bằng cách tìm hiểu, đặt câu hỏi và phân tích cách dữ liệu được tạo ra, phân tích và sử dụng. Sinh viên có thể áp dụng các khái niệm và kỹ năng để trực quan hóa dữ liệu, diễn giải kết quả và xem xét tác động của các quyết định dựa trên dữ liệu. Khóa học cũng giúp sinh viên làm quen với ngôn ngữ lập trình Python và các thư viện của nó để phân tích, trực quan hóa và khám phá thông tin dữ liệu, từ đó đưa ra các quyết định đúng đắn dựa trên dữ liệu.">
+    The Programming for Data Science and Visualization course aims at providing students with a set of skills to analyze the nature of data across different domains. The course demonstrates data visualization by understanding, questioning, and problematizing how data are generated, analyzed, and used. The students will be able to apply concepts and skills to visualize data, interpret the findings, and examine the impacts of data-driven decision. The course will also get the students familiar with Python programming language and its libraries to analyze, visualize and discover data insight leading to a proper data-driven decision-making process.
+  </p>
+
+  <p data-en="Assignment 1 - Data analysis, visualization and story telling:" 
+     data-vi="Bài tập 1 - Phân tích dữ liệu, trực quan hóa và kể chuyện dữ liệu:">
+     Assignment 1 - Data analysis, visualization and story telling:
+  </p>
+  <p>
+    <a href="https://drive.google.com/drive/folders/1auMqgTttn1a0xpbCxu4lOJK4zAa9aULe?usp=drive_link" target="_blank" 
+       data-en="Including: topic, file csv, python code, report" 
+       data-vi="Bao gồm: chủ đề, tệp csv, mã python, báo cáo">
+       Including: topic, file csv, python code, report
+    </a>
+  </p>
+
+  <p data-en="Assignment 2 - Linear Regression:" 
+     data-vi="Bài tập 2 - Hồi quy tuyến tính:">
+     Assignment 2 - Linear Regression:
+  </p>
+  <p>
+    <a href="https://drive.google.com/drive/folders/1pwW3Tk1ik5CG59BTfnUsuAuRUsxaMXiS?usp=sharing" target="_blank" 
+       data-en="Including: file csv, python code + file csv" 
+       data-vi="Bao gồm: tệp csv, mã python + tệp csv">
+       Including: file csv, python code + file csv
+    </a>
+  </p>
+
+  <p data-en="Assignment 3 - Data analysis, visualization and story telling:" 
+     data-vi="Bài tập 3 - Phân tích dữ liệu, trực quan hóa và kể chuyện dữ liệu:">
+     Assignment 3 - Data analysis, visualization and story telling:
+  </p>
+  <p>
+    <a href="https://drive.google.com/drive/folders/1Tau00u4NrCyTtxDVcq3CRu3TgkxeA-Z9?usp=sharing" target="_blank" 
+       data-en="Including: file csv, python code + file csv" 
+       data-vi="Bao gồm: tệp csv, mã python + tệp csv">
+       Including: file csv, python code + file csv
+    </a>
+  </p>
+</div>
+</div></div>
+
+        
+
+        <div class="course" onclick="toggleCourse(this)">
+          <div class="course-toggle" id="dst" data-en="2. Design and System Thinking" data-vi="2. Design and System Thinking">2. Design and System Thinking</div>
+          <div class="course-content">
+  <p>
+    <strong data-en="About course:" data-vi="Về khóa học:">About course:</strong>
+  </p>
+
+  <p 
+    data-en="We learn across the Fulbright Core how transformations have happened in human history – transformations in thought, in social structures, and in individual lives. We also see how transformations happen in nature and how human intervention transforms the natural world. But what about transformation that humans create through intentional design? This might be a new mask that filters air in a superior manner, a drone that can deliver medicines to remote parts of the country faster than any vehicle, or an app that allows you to create new music depending on your mood. In this course, we showcase how innovation is linked to rigorous scientific, mathematical, and engineering methods, with an emphasis on teamwork and hands-on experience. Students may take this as an entry point into the deeper study of design and engineering, or they may apply what they learn in this introductory course to their understanding of social and economic systems, to creative fabrication in the fine arts, or to the design and development of a start-up company in collaboration with Fulbright’s Center for Entrepreneurship and Innovation. This course embraces both the art and science of creation, instilling the confidence to experiment, sometimes to fail, but ultimately to prevail in designing and building a better future."
+    
+    data-vi="Chúng ta học trong Chương trình Cốt lõi của Fulbright về cách các sự biến đổi đã diễn ra trong lịch sử loài người – sự biến đổi trong tư tưởng, trong cấu trúc xã hội, và trong đời sống cá nhân. Chúng ta cũng thấy sự biến đổi diễn ra trong tự nhiên và cách con người tác động làm biến đổi thế giới tự nhiên. Vậy còn những biến đổi mà con người tạo ra thông qua thiết kế có chủ đích thì sao? Đó có thể là một loại khẩu trang mới lọc không khí tốt hơn, một chiếc drone có thể giao thuốc tới vùng xa nhanh hơn bất kỳ phương tiện nào, hoặc một ứng dụng cho phép bạn tạo nhạc mới tùy theo tâm trạng. Trong khóa học này, chúng ta trình bày cách đổi mới gắn liền với các phương pháp khoa học, toán học và kỹ thuật nghiêm ngặt, với trọng tâm là làm việc nhóm và trải nghiệm thực hành. Sinh viên có thể coi đây là điểm khởi đầu để nghiên cứu sâu hơn về thiết kế và kỹ thuật, hoặc có thể áp dụng những gì học được trong khóa nhập môn này vào việc hiểu hệ thống xã hội và kinh tế, vào sáng tạo trong mỹ thuật, hoặc vào thiết kế và phát triển một công ty khởi nghiệp hợp tác với Trung tâm Khởi nghiệp và Đổi mới của Fulbright. Khóa học này kết hợp cả nghệ thuật và khoa học của sự sáng tạo, khơi dậy sự tự tin để thử nghiệm, đôi khi thất bại, nhưng cuối cùng là thành công trong việc thiết kế và xây dựng một tương lai tốt đẹp hơn.">
+    We learn across the Fulbright Core how transformations have happened in human history – transformations in thought, in social structures, and in individual lives. We also see how transformations happen in nature and how human intervention transforms the natural world. But what about transformation that humans create through intentional design? This might be a new mask that filters air in a superior manner, a drone that can deliver medicines to remote parts of the country faster than any vehicle, or an app that allows you to create new music depending on your mood. In this course, we showcase how innovation is linked to rigorous scientific, mathematical, and engineering methods, with an emphasis on teamwork and hands-on experience. Students may take this as an entry point into the deeper study of design and engineering, or they may apply what they learn in this introductory course to their understanding of social and economic systems, to creative fabrication in the fine arts, or to the design and development of a start-up company in collaboration with Fulbright’s Center for Entrepreneurship and Innovation. This course embraces both the art and science of creation, instilling the confidence to experiment, sometimes to fail, but ultimately to prevail in designing and building a better future.
+  </p>
+
+  <p data-en="Final project (5 members) - Smart Trash Bin:"
+     data-vi="Dự án cuối kỳ (5 thành viên) - Thùng rác thông minh:">
+     Final project (5 members) - Smart Trash Bin:
+  </p>
+
+  <p>
+    <a href="https://youtu.be/UK8GuZYBNEY?si=urh-N10TUNGT8oFt" target="_blank"
+       data-en="The video we posted on YouTube covers the entire project process."
+       data-vi="Video chúng tôi đăng trên YouTube bao quát toàn bộ quá trình thực hiện dự án.">
+       The video we posted on YouTube covers the entire project process.
+    </a>
+  </p>
+</div>
+        </div>
+
+        <div class="course" onclick="toggleCourse(this)">
+          <div class="course-toggle" data-en="3. Computational Social Media" data-vi="3. Computational Social Media">3. Computational Social Media</div>
+<div class="course-content">
+  <p>
+    <strong data-en="About course:" data-vi="Về khóa học:">About course:</strong>
+  </p>
+
+  <p 
+    data-en="The course will present a human-centered view of computational social media. It uses a multidisciplinary approach and integrates concepts from media studies, multimedia information systems, machine learning, and network science to present the socio-technical fundamentals needed to understand the motivations, characterize the behavior, and analyze the content and relations of social media users and communities in sites like Twitter, Facebook, and YouTube. Students will become familiar with computational approaches for classification, discovery, and interpretation of phenomena in social media. The content is organized around trends in social media, introducing computational models of general applicability."
+    
+    data-vi="Khóa học sẽ trình bày một góc nhìn lấy con người làm trung tâm về mạng xã hội tính toán. Nó sử dụng cách tiếp cận đa ngành, tích hợp các khái niệm từ nghiên cứu truyền thông, hệ thống thông tin đa phương tiện, học máy và khoa học mạng để trình bày các nguyên tắc xã hội - kỹ thuật cần thiết nhằm hiểu động cơ, đặc trưng hành vi, phân tích nội dung và mối quan hệ của người dùng và cộng đồng trên các nền tảng như Twitter, Facebook và YouTube. Sinh viên sẽ làm quen với các phương pháp tính toán để phân loại, khám phá và diễn giải các hiện tượng trong mạng xã hội. Nội dung được tổ chức xoay quanh các xu hướng trong mạng xã hội, giới thiệu các mô hình tính toán có khả năng áp dụng rộng rãi.">
+    The course will present a human-centered view of computational social media. It uses a multidisciplinary approach and integrates concepts from media studies, multimedia information systems, machine learning, and network science to present the socio-technical fundamentals needed to understand the motivations, characterize the behavior, and analyze the content and relations of social media users and communities in sites like Twitter, Facebook, and YouTube. Students will become familiar with computational approaches for classification, discovery, and interpretation of phenomena in social media. The content is organized around trends in social media, introducing computational models of general applicability.
+  </p>
+
+  <p data-en="Final project:" data-vi="Dự án cuối kỳ:">Final project:</p>
+  <p>
+    <a href="https://drive.google.com/drive/folders/1sjgDQ70XEDLl-T9fessBhQ1zikiSCLL_?usp=sharing" target="_blank"
+       data-en="The final project report."
+       data-vi="Báo cáo dự án cuối kỳ.">
+       The final project report.
+    </a>
+  </p>
+</div>
+        </div>
+
+<div class="course" onclick="toggleCourse(this)">
+          <div class="course-toggle" data-en="4. Exploring The Past" data-vi="4. Exploring The Past">4. Exploring The Past</div>
+<div class="course-content">
+  <p>
+    <strong data-en="About course:" data-vi="Về khóa học:">About course:</strong>
+  </p>
+
+  <p 
+    data-en="The Programming for Data Science and Visualization course aims at providing students with a set of skills to analyze the nature of data across different domains. The course demonstrates data visualization by understanding, questioning, and problematizing how data are generated, analyzed, and used. The students will be able to apply concepts and skills to visualize data, interpret the findings, and examine the impacts of data-driven decision. The course will also get the students familiar with Python programming language and its libraries to analyze, visualize and discover data insight leading to a proper data-driven decision-making process."
+    
+    data-vi="Khóa học Lập trình cho Khoa học Dữ liệu và Trực quan hóa nhằm cung cấp cho sinh viên bộ kỹ năng để phân tích bản chất của dữ liệu trong nhiều lĩnh vực. Khóa học minh họa việc trực quan hóa dữ liệu bằng cách tìm hiểu, đặt câu hỏi và phân tích cách dữ liệu được tạo ra, phân tích và sử dụng. Sinh viên có thể áp dụng các khái niệm và kỹ năng để trực quan hóa dữ liệu, diễn giải kết quả và xem xét tác động của các quyết định dựa trên dữ liệu. Khóa học cũng giúp sinh viên làm quen với ngôn ngữ lập trình Python và các thư viện của nó để phân tích, trực quan hóa và khám phá thông tin dữ liệu, từ đó đưa ra các quyết định đúng đắn dựa trên dữ liệu.">
+    The Programming for Data Science and Visualization course aims at providing students with a set of skills to analyze the nature of data across different domains. The course demonstrates data visualization by understanding, questioning, and problematizing how data are generated, analyzed, and used. The students will be able to apply concepts and skills to visualize data, interpret the findings, and examine the impacts of data-driven decision. The course will also get the students familiar with Python programming language and its libraries to analyze, visualize and discover data insight leading to a proper data-driven decision-making process.
+  </p>
+
+  <p data-en="Assignment 1 - Media Review:" data-vi="Bài tập 1 - Đánh giá truyền thông:">
+    Assignment 1 - Media Review:
+  </p>
+  <p>
+    <a href="https://drive.google.com/drive/folders/13xbNHAWnWEzRlqE83nQmcgQHpeI4hVhn?usp=sharing" target="_blank"
+       data-en="Including: topic, essay"
+       data-vi="Bao gồm: chủ đề, bài luận">
+       Including: topic, essay
+    </a>
+  </p>
+
+  <p data-en="Assignment 2 - Object History:" data-vi="Bài tập 2 - Lịch sử vật thể:">
+    Assignment 2 - Object History:
+  </p>
+  <p>
+    <a href="https://drive.google.com/drive/folders/1XfvuPXNplOQQXodFMnKtH-Vn8bh1fYop?usp=sharing" target="_blank"
+       data-en="Including: topic, essay"
+       data-vi="Bao gồm: chủ đề, bài luận">
+       Including: topic, essay
+    </a>
+  </p>
+
+  <p data-en="Assignment 3 - Podcast:" data-vi="Bài tập 3 - Podcast:">
+    Assignment 3 - Podcast:
+  </p>
+  <p>
+    <a href="https://drive.google.com/drive/folders/1I61TIOxh5lynEUisTR3Xc8eHkg-xD5kg?usp=sharing" target="_blank"
+       data-en="Including: topic, draft, mp4 file"
+       data-vi="Bao gồm: chủ đề, bản nháp, tệp mp4">
+       Including: topic, draft, mp4 file
+    </a>
+  </p>
+</div>
+        </div>
+
+        <div class="course" onclick="toggleCourse(this)">
+          <div class="course-toggle" data-en="5. Principles of Economic" data-vi="5. Principles of Economic">5. Principles of Economic</div>
+          <div class="course-content">
+  <p>
+    <strong data-en="About course:" data-vi="Về khóa học:">About course:</strong>
+  </p>
+
+  <p
+    data-en="Is climate change real? If so, to what extent? What are the factors causing it? And what are we willing to give up to stop it? This introductory course offers students a first touch in economics as an economist, not a student. Rather than consider hypothetical situations related to climate change, we will compute the empirical realities. In this course we will put economics in the context of how it analyzes and addresses real-world issues such as inequality, discrimination, and sustainability through the interplay of data and theory. While this course will be challenging, no prior knowledge of economics, statistics, or computer programming is assumed."
+    
+    data-vi="Biến đổi khí hậu có thật không? Nếu có, thì ở mức độ nào? Những yếu tố nào gây ra nó? Và chúng ta sẵn sàng từ bỏ điều gì để ngăn chặn nó? Khóa học nhập môn này mang đến cho sinh viên cái nhìn đầu tiên về kinh tế học như một nhà kinh tế, chứ không phải chỉ như một sinh viên. Thay vì xem xét các tình huống giả định liên quan đến biến đổi khí hậu, chúng ta sẽ tính toán các thực tế mang tính thực nghiệm. Trong khóa học này, chúng ta đặt kinh tế học vào bối cảnh phân tích và giải quyết các vấn đề thực tế như bất bình đẳng, phân biệt đối xử và tính bền vững thông qua sự kết hợp giữa dữ liệu và lý thuyết. Mặc dù khóa học này có tính thách thức, nhưng không yêu cầu kiến thức trước đó về kinh tế học, thống kê hay lập trình máy tính.">
+    Is climate change real? If so, to what extent? What are the factors causing it? And what are we willing to give up to stop it? This introductory course offers students a first touch in economics as an economist, not a student. Rather than consider hypothetical situations related to climate change, we will compute the empirical realities. In this course we will put economics in the context of how it analyzes and addresses real-world issues such as inequality, discrimination, and sustainability through the interplay of data and theory. While this course will be challenging, no prior knowledge of economics, statistics, or computer programming is assumed.
+  </p>
+</div>
+        </div>
+
+        <div class="course" onclick="toggleCourse(this)">
+          <div class="course-toggle" data-en="6. Global Humanities and Social Change" data-vi="6. Global Humanities and Social Change">6. Global Humanities and Social Change</div>
+          <div class="course-content"> 
+  <p>
+    <strong data-en="About course:" data-vi="Về khóa học:">About course:</strong>
+  </p>
+
+  <p data-en="Across time and geographies, humans have drawn upon arts and literature to make sense of the world we live in. Global Humanities is a brief introduction to texts that have helped shape human consciousness and history. Within the limitations of the semester and the wealth of texts available, we consider important ideas, arguments, and periods in global history. The first unit, “Classical Epistemologies” looks at early inquiries into what is knowledge, and how we know what we know. The second unit, “Power, and the Making of the Modern World” looks to the often-unequal reshaping of social and political boundaries in the age of nation-building and colonization. The third unit, “Writing a New World” draws attention to how authors have considered the world we have built and are continuing to build, and how to do better moving forward. In addition to reading important texts and films, students will be introduced to and trained in a wide variety of academic skills that are essential for their future journey at Fulbright and beyond."
+     data-vi="Xuyên suốt thời gian và không gian, con người đã dựa vào nghệ thuật và văn học để lý giải thế giới mà chúng ta đang sống. Global Humanities là phần giới thiệu ngắn gọn về những văn bản đã góp phần định hình ý thức và lịch sử loài người. Trong giới hạn của một học kỳ và kho tàng văn bản phong phú, chúng ta sẽ tìm hiểu những ý tưởng, lập luận và giai đoạn quan trọng trong lịch sử toàn cầu. Đơn vị đầu tiên, “Tri thức học cổ điển” xem xét những truy vấn sớm về tri thức là gì và làm sao chúng ta biết được những gì mình biết. Đơn vị thứ hai, “Quyền lực và sự hình thành thế giới hiện đại” tập trung vào quá trình tái định hình bất bình đẳng của các ranh giới xã hội và chính trị trong thời kỳ xây dựng quốc gia và thực dân hóa. Đơn vị thứ ba, “Viết về một thế giới mới” hướng sự chú ý đến cách các tác giả đã suy ngẫm về thế giới mà chúng ta đã và đang xây dựng, cũng như cách để làm tốt hơn trong tương lai. Bên cạnh việc đọc các văn bản và bộ phim quan trọng, sinh viên sẽ được giới thiệu và rèn luyện nhiều kỹ năng học thuật cần thiết cho hành trình học tập tại Fulbright và xa hơn nữa.">
+     Across time and geographies, humans have drawn upon arts and literature to make sense of the world we live in. Global Humanities is a brief introduction to texts that have helped shape human consciousness and history. Within the limitations of the semester and the wealth of texts available, we consider important ideas, arguments, and periods in global history. The first unit, “Classical Epistemologies” looks at early inquiries into what is knowledge, and how we know what we know. The second unit, “Power, and the Making of the Modern World” looks to the often-unequal reshaping of social and political boundaries in the age of nation-building and colonization. The third unit, “Writing a New World” draws attention to how authors have considered the world we have built and are continuing to build, and how to do better moving forward. In addition to reading important texts and films, students will be introduced to and trained in a wide variety of academic skills that are essential for their future journey at Fulbright and beyond.
+  </p>
+
+  <p data-en="+ Assessment Annotations and Ideas:" data-vi="+ Đánh giá: Ghi chú và Ý tưởng:">
+    + Assessment Annotations and Ideas:
+  </p>
+  <p>
+    <a href="https://drive.google.com/drive/folders/1noySTTPLa6ErJHWMqFlVkiushGAB8oqk?usp=sharing" target="_blank"
+       data-en="Including: topic, essay"
+       data-vi="Bao gồm: chủ đề, bài luận">
+       Including: topic, essay
+    </a>
+  </p>
+
+  <p data-en="+ Assignment From Text to Real World Essay:" data-vi="+ Bài tập: Từ Văn bản đến Bài luận Thực tiễn:">
+    + Assignment From Text to Real World Essay:
+  </p>
+  <p>
+    <a href="https://drive.google.com/drive/folders/1JVs1QfJkf4SKJ2933Em3SGl19luMINbv?usp=sharing" target="_blank"
+       data-en="Including: topic, essay"
+       data-vi="Bao gồm: chủ đề, bài luận">
+       Including: topic, essay
+    </a>
+  </p>
+
+  <p data-en="+ Assessment Comparative Writing and Putting it all Together:" data-vi="+ Đánh giá: Viết so sánh và Tổng hợp:">
+    + Assessment Comparative Writing and Putting it all Together:
+  </p>
+  <p>
+    <a href="https://drive.google.com/drive/folders/1MmCrrjpLdQXV6fmJeDpRYtQRv9p_oS0H?usp=sharing" target="_blank"
+       data-en="Including: topic, essay"
+       data-vi="Bao gồm: chủ đề, bài luận">
+       Including: topic, essay
+    </a>
+  </p>
+</div>
+        </div>
+
+        <div class="course" onclick="toggleCourse(this)">
+          <div class="course-toggle" data-en="7. Ideas of Math" data-vi="7. Ideas of Math">7. Ideas of Math</div>
+          <div class="course-content">
+  <p>
+    <strong data-en="About course:" data-vi="Về khóa học:">About course:</strong>
+  </p>
+
+  <p data-en="This course, if successful, will help students explore how to read and write mathematics. At its best, mathematics contains all of the following: creativity, beauty and, of course, precision. A masterpiece in mathematics could be compared to a great drawing or a classic novel. As an example, Martin Hairer’s regularity structure is compared to Lord of the Rings on Quanta Magazine."
+     data-vi="Khóa học này, nếu thành công, sẽ giúp sinh viên khám phá cách đọc và viết toán học. Ở mức độ tốt nhất, toán học bao gồm tất cả những điều sau: sự sáng tạo, cái đẹp và tất nhiên là sự chính xác. Một kiệt tác toán học có thể được so sánh với một bức tranh tuyệt vời hoặc một tiểu thuyết kinh điển. Ví dụ, cấu trúc chính quy của Martin Hairer đã được so sánh với Chúa tể những chiếc nhẫn trên tạp chí Quanta.">
+     This course, if successful, will help students explore how to read and write mathematics. At its best, mathematics contains all of the following: creativity, beauty and, of course, precision. A masterpiece in mathematics could be compared to a great drawing or a classic novel. As an example, Martin Hairer’s regularity structure is compared to Lord of the Rings on Quanta Magazine.
+  </p>
+
+  <p data-en="We will start with the basic language of modern mathematics, logic and set theory. Then, depending on the interests of students, we will talk about some (but not limited to) of the following topics: infinity, number theory, combinatorics, probability, game theory, linear algebra, discrete and/or differential dynamical systems. Along the way, we will find real world applications of the above subjects."
+     data-vi="Chúng ta sẽ bắt đầu với ngôn ngữ cơ bản của toán học hiện đại, logic và lý thuyết tập hợp. Sau đó, tùy thuộc vào sở thích của sinh viên, chúng ta sẽ thảo luận về một số (nhưng không giới hạn) các chủ đề sau: vô cực, lý thuyết số, tổ hợp, xác suất, lý thuyết trò chơi, đại số tuyến tính, hệ động lực rời rạc và/hoặc vi phân. Trên hành trình này, chúng ta sẽ tìm ra các ứng dụng thực tế của những chủ đề trên.">
+     We will start with the basic language of modern mathematics, logic and set theory. Then, depending on the interests of students, we will talk about some (but not limited to) of the following topics: infinity, number theory, combinatorics, probability, game theory, linear algebra, discrete and/or differential dynamical systems. Along the way, we will find real world applications of the above subjects.
+  </p>
+
+  <p data-en="Final project - Number Theory (Latex):"
+     data-vi="Dự án cuối kỳ - Lý thuyết số (Latex):">
+     Final project - Number Theory (Latex):
+  </p>
+
+  <p>
+    <a href="https://drive.google.com/drive/folders/1st_lX4nzpeiZ0N7rXVJq9_LGWze0XTeR?usp=sharing" target="_blank"
+       data-en="The Queen of Mathematics: Number Theory."
+       data-vi="Nữ hoàng của Toán học: Lý thuyết số.">
+       The Queen of Mathematics: Number Theory.
+    </a>
+  </p>
+</div>
+        </div>
+
+        <div class="course" onclick="toggleCourse(this)">
+          <div class="course-toggle" data-en="8. Modern Vietnamese Culture and Society" data-vi="8. Modern Vietnamese Culture and Society">8. Modern Vietnamese Culture and Society</div>
+          <div class="course-content">
+  <p>
+    <strong data-en="About course:" data-vi="Về khóa học:">About course:</strong>
+  </p>
+
+  <p data-en="This course exposes students to a wide array of issues encountered in modern Vietnam, ranging from socio-cultural, politico-economic aspects to questions of nationalism, international relations, and globalization when examining the country in its regional and global contexts. Throughout the course, students are introduced to basic concepts in social sciences and humanities that will allow them a better understanding of their social environments as well as urge them to assess others’ interpretations with an open but critical mind. The course helps to raise students’ socio-political awareness and cultural identity, encouraging them to grow up as responsible national and global citizens."
+     data-vi="Khóa học này giới thiệu cho sinh viên nhiều vấn đề gặp phải trong Việt Nam hiện đại, từ khía cạnh xã hội - văn hóa, chính trị - kinh tế đến các câu hỏi về chủ nghĩa dân tộc, quan hệ quốc tế và toàn cầu hóa khi xem xét đất nước trong bối cảnh khu vực và toàn cầu. Trong suốt khóa học, sinh viên được giới thiệu những khái niệm cơ bản trong khoa học xã hội và nhân văn, giúp họ hiểu rõ hơn về môi trường xã hội của mình cũng như khuyến khích họ đánh giá cách diễn giải của người khác với tư duy cởi mở nhưng phản biện. Khóa học giúp nâng cao nhận thức xã hội - chính trị và bản sắc văn hóa của sinh viên, khuyến khích họ trưởng thành như những công dân có trách nhiệm trong nước và toàn cầu.">
+     This course exposes students to a wide array of issues encountered in modern Vietnam, ranging from socio-cultural, politico-economic aspects to questions of nationalism, international relations, and globalization when examining the country in its regional and global contexts. Throughout the course, students are introduced to basic concepts in social sciences and humanities that will allow them a better understanding of their social environments as well as urge them to assess others’ interpretations with an open but critical mind. The course helps to raise students’ socio-political awareness and cultural identity, encouraging them to grow up as responsible national and global citizens.
+  </p>
+
+  <p data-en="Final project:" data-vi="Dự án cuối kỳ:">Final project:</p>
+  <p>
+    <a href="https://drive.google.com/drive/folders/1IdzQYIFgNiKnh6Ig53rRnzKuuoBzH8d7?usp=sharing" target="_blank"
+       data-en="Final Research Paper" data-vi="Bài nghiên cứu cuối kỳ">Final Research Paper</a><br>
+    <a href="https://youtu.be/iF7p7RXGpeo?si=xjl_OtsXb1__DJLK" target="_blank"
+       data-en="Final Youtube Video Link" data-vi="Video Youtube cuối kỳ">Final Youtube Video Link</a>
+  </p>
+</div>
+        </div>
+      </div>
+      <div class="course-projects upcoming">
+  <h3 data-en="Ongoing courses" data-vi="Các môn học đang học">Ongoing courses</h3>
+
+  <!-- COURSE 1 -->
+  <div class="course" onclick="toggleCourse(this)">
+    <div class="course-toggle" data-en="1. Machine Learning for Data Science" data-vi="1. Machine Learning for Data Science">
+      1. Machine Learning for Data Science
+    </div>
+    <div class="course-content">
+      <p>
+        <strong data-en="About course:" data-vi="Về khóa học:">About course:</strong>
+      </p>
+      <p data-en="The course Machine Learning for Data Science aims at providing students with a basic understanding of the principles of machine learning algorithms and deriving practical solutions using predictive analytics."
+         data-vi="Khóa học Machine Learning for Data Science nhằm cung cấp cho sinh viên sự hiểu biết cơ bản về các nguyên lý của thuật toán học máy và cách xây dựng các giải pháp thực tiễn bằng phân tích dự đoán.">
+        The course Machine Learning for Data Science aims at providing students with a basic
+        understanding of the principles of machine learning algorithms and deriving practical
+        solutions using predictive analytics.
+      </p>
+
+      <p data-en="The course demonstrates mathematical concepts and hands-on skills required for the algorithms that are typically used in practice. Students will be able to apply concepts and skills to analyze data across different domains, interpret the findings, then build learning systems and comprehend their performance."
+         data-vi="Khóa học trình bày các khái niệm toán học và kỹ năng thực hành cần thiết cho các thuật toán thường được sử dụng trong thực tế. Sinh viên sẽ có thể áp dụng khái niệm và kỹ năng để phân tích dữ liệu trong nhiều lĩnh vực, diễn giải kết quả, xây dựng hệ thống học máy và đánh giá hiệu suất của chúng.">
+        The course demonstrates mathematical concepts and hands-on skills required for the
+        algorithms that are typically used in practice. The students will be able to apply
+        concepts and skills to analyze data across different domains, interpret the findings,
+        then build learning systems and comprehend their performance.
+      </p>
+
+      <p data-en="Topics include supervised learning (Naïve Bayes classification, Decision Tree, Random Forest, Support Vector Machine (SVM), Deep Neural Network); unsupervised learning (K-means clustering, Hierarchical clustering)."
+         data-vi="Các chủ đề bao gồm học có giám sát (phân loại Naïve Bayes, Cây quyết định, Rừng ngẫu nhiên, Máy vector hỗ trợ (SVM), Mạng nơ-ron sâu); học không giám sát (phân cụm K-means, phân cụm phân cấp).">
+        Topics include supervised learning (Naïve Bayes classification, Decision Tree, Random
+        Forest, Support Vector Machine (SVM), Deep Neural Network); unsupervised
+        learning (K-means clustering, Hierarchical clustering).
+      </p>
+
+      <p data-en="The course will also discuss recent applications of machine learning, such as robotics, autonomous driving systems, face and speech recognition, etc."
+         data-vi="Khóa học cũng sẽ thảo luận về các ứng dụng gần đây của học máy, chẳng hạn như trong robot, hệ thống lái xe tự động, nhận dạng khuôn mặt và giọng nói, v.v.">
+        The course will also discuss recent applications of machine learning, such as to
+        robotics, autonomous driving systems, face and speech recognition, etc.
+      </p>
+
+      <p data-en="Assignment 1 - Object History:" data-vi="Bài tập 1 - Lịch sử vật thể:">
+    Assignment 2 - Object History:
+  </p>
+  <p>
+    <a href="https://drive.google.com/drive/folders/1XfvuPXNplOQQXodFMnKtH-Vn8bh1fYop?usp=sharing" target="_blank"
+       data-en="Including: csv file, questions and answers"
+       data-vi="Bao gồm: file csv, câu hỏi và câu trả lời">
+       Including: csv file, questions and answers
+    </a>
+  </p>
+
+    </div>
+  </div>
+
+  <!-- COURSE 2 -->
+  <div class="course" onclick="toggleCourse(this)">
+    <div class="course-toggle" data-en="2. Introduction to Programming" data-vi="2. Introduction to Programming">
+      2. Introduction to Programming
+    </div>
+    <div class="course-content">
+      <p>
+        <strong data-en="About course:" data-vi="Về khóa học:">About course:</strong>
+      </p>
+      <p data-en="This course aims to equip students with the skills necessary to solve computational problems using a high-level programming language. Students will develop their abilities to use (i) fundamental programming constructs such as branching statements, loops, functions, and recursion and (ii) abstract data types such as lists and maps. Students will also be exposed to basic concepts of object-oriented programming."
+         data-vi="Khóa học nhằm trang bị cho sinh viên các kỹ năng cần thiết để giải quyết các vấn đề tính toán bằng ngôn ngữ lập trình bậc cao. Sinh viên sẽ phát triển khả năng sử dụng (i) các cấu trúc lập trình cơ bản như câu lệnh rẽ nhánh, vòng lặp, hàm và đệ quy và (ii) các kiểu dữ liệu trừu tượng như danh sách và bảng ánh xạ. Sinh viên cũng sẽ được làm quen với các khái niệm cơ bản của lập trình hướng đối tượng.">
+        This course aims to equip students with the skills necessary to
+        solve computational problems using a high-level programming
+        language. Students will develop their abilities to use (i)
+        fundamental programming constructs such as branching
+        statements, loops, functions, and recursion and (ii) abstract data
+        types such as lists and maps. Students will also be exposed to basic
+        concepts of object-oriented programming.
+      </p>
+    </div>
+  </div>
+
+  <!-- COURSE 3 -->
+  <div class="course" onclick="toggleCourse(this)">
+    <div class="course-toggle" data-en="3. Introduction to Science and Technology Studies" data-vi="3. Introduction to Science and Technology Studies">
+      3. Introduction to Science and Technology Studies
+    </div>
+    <div class="course-content">
+      <p>
+        <strong data-en="About course:" data-vi="Về khóa học:">About course:</strong>
+      </p>
+      <p data-en="Technological innovation and scientific progress have been our essential societal elements. Yet, despite this societal commitment toward scientific progress and technological innovations, for a long time society was only limitedly engaged in a self-reflective process about the consequences of this commitment. This course seeks to understand how scientific knowledge and new technologies are developed and how they affect societies."
+         data-vi="Đổi mới công nghệ và tiến bộ khoa học là những yếu tố thiết yếu của xã hội chúng ta. Tuy nhiên, mặc dù xã hội cam kết mạnh mẽ với tiến bộ khoa học và đổi mới công nghệ, trong một thời gian dài xã hội chỉ tham gia hạn chế vào quá trình tự phản tư về những hệ quả của cam kết này. Khóa học tìm hiểu cách thức tri thức khoa học và công nghệ mới được phát triển và ảnh hưởng của chúng đến xã hội.">
+        Technological innovation and scientific progress have been our essential societal elements. Indeed, as Winner notes (1986, p.7), "society […] committed itself to forge ahead full bore with scientific and technological advance." Yet, despite this societal commitment toward scientific progress and technological innovations, for a long-time, society was only limitedly engaged in a self-reflective process that asked itself what the consequences of this commitment were and are. However, observing societal development and history, it is evident that scientific achievements and technological advancements have fundamentally affected and even changed how societies develop. In this course, we seek to understand how scientific knowledge and (new) technologies are developed, formulated, and achieved, and foremost we seek to understand the complex relationship between science, technology, and societies.
+      </p>
+
+      <p data-en="By exploring these questions, students will be introduced to the academic discipline of Science and Technology Studies (STS). The course aims to help students understand the value of STS while raising interest in the subject."
+         data-vi="Thông qua việc khám phá những câu hỏi này, sinh viên sẽ được giới thiệu với ngành học Nghiên cứu Khoa học và Công nghệ (STS). Khóa học nhằm giúp sinh viên hiểu được giá trị của STS đồng thời khơi dậy sự quan tâm đến lĩnh vực này.">
+        By seeking to understand this, students will get introduced to and acquainted with the academic discipline of Science and Technology Studies (STS). This course serves as a modest foray into Science and Technology Studies' academic discipline. It should enable students to understand better the underlying technologies and the value of Science and Technology Studies (STS) while hopefully raising interest in these subjects and this academic discipline.
+      </p>
+
+      <p data-en="The course is divided into two parts: (1) introduction to the field of STS, its theoretical frameworks, and history; (2) exploration of the relationship between science, technology, and society, including ethical, economic, and social dimensions."
+         data-vi="Khóa học được chia thành hai phần: (1) giới thiệu về lĩnh vực STS, các khung lý thuyết và lịch sử của nó; (2) khám phá mối quan hệ giữa khoa học, công nghệ và xã hội, bao gồm các khía cạnh đạo đức, kinh tế và xã hội.">
+        The course is split into two major parts. The first focuses on the broader discipline and provides an introduction to the field, as well as the most important theoretical frameworks and discussions within STS. The focus is here on understanding and interpreting science and technology as academic disciplines. As well, providing insights into how science and technology historically have developed, and what this matters, for historical and current perspectives. The second part seeks to understand the relationship between science, technology, and societies. In the late 1980ties, the STS discipline started to focus more on the role, and impact of science and foremost (new) technologies on societies, while assessing the role and influence of societies on the progression of scientific knowledge and technologies. This section focuses on this and will discuss the social value and importance of the social construction of science and technology. It focuses on topics such as the role of society in the shaping of the scientific and technological progress, ethical considerations in this process, economic dynamics that influence this process, as well questions regarding trust and risks in science and technology advancement.
+      </p>
+
+      <p data-en="At the end of the course, students will explore case studies that connect theoretical frameworks of STS with practical applications, encouraging critical engagement and reflection."
+         data-vi="Cuối khóa học, sinh viên sẽ tìm hiểu các nghiên cứu tình huống kết nối khung lý thuyết STS với các ứng dụng thực tiễn, từ đó khuyến khích sự tham gia phê phán và tư duy phản chiếu.">
+        At the end of the seminar, there is opportunity for a clear praxis-oriented focus, depending on the students preference. As Sismondo (2010, viii) notes, "Case studies are the bread and butter of STS. Almost all insights in the field grow out of them, and researchers and students still turn to articles based on cases to learn central ideas and to puzzle through problems". Thus, to understand and connect the broader theoretical frameworks of STS and the discussion on the social construct of STS, to the praxis, I seek provide students with a selection of case studies that they can choose from. In this, I strive to increase student engagement and furthermore, to allow students a choice in the seminar’s topics, and hopefully to increase a critical engagement and thought process on how the practical influence of science and technology on contemporary societies.
+      </p>
+
+      <p data-en="1st Month Essay:" data-vi="Bài luận tháng đầu tiên:">
+    1st Month Essay:
+  </p>
+  <p>
+    <a href="https://drive.google.com/drive/folders/1XfvuPXNplOQQXodFMnKtH-Vn8bh1fYop?usp=sharing" target="_blank"
+       data-en="Including: essay"
+       data-vi="Bao gồm: bài luận">
+       Including: essay
+    </a>
+  </p>
+
+    </div>
+  </div>
+
+  <!-- COURSE 4 -->
+  <div class="course" onclick="toggleCourse(this)">
+    <div class="course-toggle" data-en="4. Introduction to Literary Studies: Writing the Self" data-vi="4. Introduction to Literary Studies: Writing the Self">
+      4. Introduction to Literary Studies: Writing the Self
+    </div>
+    <div class="course-content">
+      <p>
+        <strong data-en="About course:" data-vi="Về khóa học:">About course:</strong>
+      </p>
+      <p data-en="This course focuses on life writing, particularly the self. It covers early Western genres like confession (Rousseau) and essays (Montaigne), then moves to contemporary forms such as memoirs, graphic narratives, and letters. Students will explore debates on authenticity, identity, memory, and self-representation, with attention to gender, sexuality, place, and trauma. Students will also practice writing the self through journaling, reflecting both personally and intellectually."
+         data-vi="Khóa học tập trung vào thể loại viết về cuộc đời, đặc biệt là viết về bản thân. Nội dung bao gồm các thể loại phương Tây cổ điển như tự thú (Rousseau) và tiểu luận (Montaigne), sau đó chuyển sang các hình thức hiện đại như hồi ký, truyện tranh tự thuật và thư từ. Sinh viên sẽ khám phá các tranh luận về tính xác thực, bản sắc, ký ức và sự tự biểu hiện, đồng thời chú ý đến giới tính, tình dục, không gian, ký ức và sự tái hiện các trải nghiệm cá nhân cũng như biến cố lịch sử mang tính chấn thương. Sinh viên cũng sẽ thực hành viết về bản thân thông qua việc viết nhật ký, kết hợp cả phản tư cá nhân và học thuật.">
+        This iteration of Introduction to Literary Studies focuses on life writing, particularly of the self. The course will begin with early examples of writing the self, including the Western genres of confession and essays in the works of Jean Jacques Rousseau and Michel de Montaigne respectively, and move toward more contemporary examples, including memoirs of different types such as graphic and epistolary. Students will become familiar with critical concepts, terms and approaches used to analyze life narratives, and engage with debates relating to authenticity, identity, truth, memory and self-representation. Special attention will be paid to gender and sexuality, place and memory, and the representation of traumatic personal and historical events in life narrative. In a society made up of different lives, how does the investigation of life writing lend a better understanding of society? Is writing the self just a reflection of something that already exists or does it also create a new existence of the self? In addition to critically engaging with such questions through works of life writing, students will also undertake their own practice of writing the self, keeping a journal for both personal and intellectual reflections. As a result, this introductory course to literature also introduces the importance of writing as a tool for thinking. 
+      </p>
+    </div>
+  </div>
+</div>
+
+
+</div>
+
+    </div>
+  </div>
+
+  <script>
+    let currentLanguage = 'en';
+
+    function toggleLanguage() {
+  const elements = document.querySelectorAll('[data-en]');
+  currentLanguage = currentLanguage === 'en' ? 'vi' : 'en';
+  elements.forEach(el => {
+    el.innerHTML = el.getAttribute(`data-${currentLanguage}`); // dùng innerHTML thay vì textContent
+  });
+  document.querySelector('.language-switcher').textContent = currentLanguage === 'en' ? 'Tiếng Việt' : 'English';
+}
+
+
+    function toggleCourse(el) {
+      el.classList.toggle('active');
+    }
+  </script>
+
+</body>
+</html>
