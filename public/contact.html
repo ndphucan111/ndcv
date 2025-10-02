@@ -172,29 +172,6 @@ button[type="submit"]:hover {
   box-shadow: 0 6px 18px rgba(0,0,0,0.25);
 }
 
-/* Message */
-.message {
-  text-align: center;
-  font-size: 1rem;
-  margin-top: 18px;
-  opacity: 0;
-  transition: opacity 0.4s ease;
-}
-
-.message.show {
-  opacity: 1;
-}
-
-.success { color: #aaffaa; }
-.error { color: #ffaaaa; }
-
-/* Responsive */
-@media (max-width: 650px) {
-  nav { gap: 15px; }
-  h2 { font-size: 1.6rem; }
-  .container { padding: 25px; }
-}
-
   </style>
 </head>
 <body>
@@ -223,24 +200,6 @@ button[type="submit"]:hover {
       </p>
     </div>
 
-    <form id="contactForm">
-      <div class="form-group">
-        <label data-en="Your Name" data-vi="Họ và tên">Your Name</label>
-        <input type="text" name="name" required />
-      </div>
-      <div class="form-group">
-        <label data-en="Your Email" data-vi="Email của bạn">Your Email</label>
-        <input type="email" name="email" required />
-      </div>
-      <div class="form-group">
-        <label data-en="Message" data-vi="Nội dung">Message</label>
-        <textarea name="message" rows="5" required></textarea>
-      </div>
-      <button type="submit" data-en="Send Message" data-vi="Gửi">Send Message</button>
-      <div id="responseMessage" class="message"></div>
-    </form>
-  </div>
-
   <script>
   let currentLanguage = 'en';
 
@@ -254,36 +213,6 @@ button[type="submit"]:hover {
       currentLanguage === 'en' ? 'Tiếng Việt' : 'English';
   }
 
-  const form = document.getElementById('contactForm');
-  const responseMessage = document.getElementById('responseMessage');
-
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-
-    const formData = {
-      name: form.name.value,
-      email: form.email.value,
-      message: form.message.value
-    };
-
-    try {
-      const res = await fetch('/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData)
-      });
-
-      const result = await res.json();
-
-      responseMessage.textContent = result.message;
-      responseMessage.className = `message show ${result.success ? 'success' : 'error'}`;
-
-      if (result.success) form.reset();
-    } catch (err) {
-      responseMessage.textContent = 'Đã xảy ra lỗi. Vui lòng thử lại.';
-      responseMessage.className = 'message show error';
-    }
-  });
 </script>
 
 </body>
