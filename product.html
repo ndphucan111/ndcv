@@ -192,15 +192,18 @@
   line-height: 1.6;
 }
 
-.product-content a {
-  color: #FFF8C6;
-  font-weight: 600;
-  text-decoration: none;
-  transition: color 0.3s ease;
+.product-content {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: all 0.5s ease;
+  padding-left: 5px;
 }
-.product-content a:hover {
-  color: #FFD6EC;
-  text-decoration: underline;
+
+.product:hover .product-content {
+  max-height: 600px;
+  opacity: 1;
+  margin-top: 12px;
 }
 
 /* QR code */
@@ -271,14 +274,8 @@
 
     <!-- Product 2 -->
       <div class="product" onclick="toggleProduct(this)">
-      <div class="product-title" data-en="1.Finance Analyst in Wordpress ()" data-vi="1. Phân tích báo cáo kinh doanh, tài chính đăng trên Wordpress (đang tiến hành)">1.ndTool (Strong Password Checker, Calorie Calculator, Color Picker from Image)</div>
+      <div class="product-title" data-en="1. Finance Analyst AI (in process)" data-vi="1. AI Phân tích báo cáo kinh doanh, tài chính (đang tiến hành)">1.Finance Analyst AI (in process)</div>
       <div class="product-content">
-        <p data-en="Note: Chatgpt helped" data-vi="Ghi chú: giúp đỡ từ Chatgpt">Note: Chatgpt helped</p>
-        <p data-en="Strong Password Checker: This tool helps you evaluate and create strong passwords based on security criteria." data-vi="Strong Password Checker: Công cụ giúp bạn đánh giá và tạo mật khẩu mạnh dựa trên các tiêu chí bảo mật.">Strong Password Checker: This tool helps you evaluate and create strong passwords based on security criteria.</p>
-        <p data-en="Calorie Calculator: Estimate daily calorie needs based on your body and activity level." data-vi="Calorie Calculator: Ước tính lượng calo cần thiết mỗi ngày dựa trên thể trạng và mức độ hoạt động.">Calorie Calculator: Estimate daily calorie needs based on your body and activity level.</p>
-        <p data-en="Color Picker from Image: Upload an image and extract its dominant and detailed colors for design reference." data-vi="Color Picker from Image: Tải ảnh lên và trích xuất các màu chính phục vụ thiết kế.">Color Picker from Image: Upload an image and extract its dominant and detailed colors for design reference.</p>
-        <p><a href="https://ndphucan111.github.io/ndTool/" target="_blank">🔗 Click to go to Tool</a></p>
-        <a href="https://ndphucan111.github.io/ndTool/" target="_blank"><img src="img\qrcode_ndTool.png" alt="QR Code" class="qr-code"/></a>
       </div>
     </div>
 
